@@ -2,7 +2,7 @@
     require_once __DIR__."/../vendor/autoload.php";
     require_once __DIR__."/../src/Rectangle.php";
 
-    $app = new Silex/Application();
+    $app = new Silex\Application();
 
     $app->get("/", function() {
         return "Home";
@@ -35,6 +35,16 @@
         </body>
         </html>
         ";
+    });
+
+    $app->get("/view_rectangle", function() {
+        $my_rectangle = new Rectangle($_GET['length'], $_GET['width']);
+        $area = $my_rectangle->getArea();
+        if ($my_rectangle->isSquare()) {
+            return "<h1>Congratulations! You made a square! Its area is $area.</h1>";
+        } else {
+            return "<h1>Sorry! This isn't a square. Its area is $area.</h1>";
+        }
     });
 
     return $app;
